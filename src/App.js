@@ -1,26 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Bay from "./components/Bay";
+
+let items = [{key: 1, name:"Task1",duration:1,type:"work"},
+             {key: 2, name:"Task2",duration:2,type:"unavailable"},
+             {key: 3, name:"Task3",duration:3,type:"filler"}]
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Bay tasks={items}/>;
 }
 
 export default App;
