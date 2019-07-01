@@ -6,34 +6,52 @@ import "./style.css";
 // Scale of task bar can be: hours, days, weeks, months.   Default is 1 hour.
 
 const TaskItem = (props) => {
-  let durationScale = 1;       // 1 hour.
+  // First we calculate the size of the tasks 'bar' on the window.
+  //
+  // First step is to get the size of the window ( window.innerWidth ) and figure out 
+  // how many hours should be displayed in that window ( windowHours ) then dividing the 
+  // window width by the hours being displayed gives us the size of an hour's bar ( hourBarSize ).
+  // We can then multiply that by the number of hours in the task to get the task's bar size.
+
+  let windowSize = window.innerWidth;  // This is the width of the window.
+  console.log("windowSize",windowSize);
+
+  let windowHours = 40;                // Default to 1 work week, 40 hours.
+
   if (props.scale !== undefined) {
+    // Some scale information was given.  Need to parse it.
+
     let parts = props.scale.trim().split(' ');   // Split something like "1 day" into 1 & day.
-    let durationScale = parseInt(parts[0]);      // Convert the party of the first part into a number.
-    if (durationScale == NaN) {
-      durationScale = 1;
+    let windowHours = parseInt(parts[0]);      // Convert the party of the first part into a number.
+    if (isNaN(windowHours)) {
+      // Bad format for the scale.  Default to 
+      windowHours = 40;
     }
     else {
+      //    Window hours is some number, but there's a second part that may change that.
+      //      at this point we only support 'weeks' and 'months' for that second part.
+
       switch (parts[1].trim().toLowerCase()) {
-        case "hour":
-        case "hours": break;    // The math is hour based already, no conversion needed.
 
-        case "day":
-        case "days": durationScale = durationScale * 24;  // Convert days to hours.
-                     break;
-
+        default:
         case "week":
-        case "weeks": durationScale = durationScale * 24 * 7;  // Convert weeks to hours.
+        case "weeks": windowHours = windowHours * 40;       //  40 hours per week by n weeks.
                       break;
 
         case "month":
-        case "months": durationScale = durationScale * 24 * 30;  // Convert month to hours.
-                      break;                                     // Note this isn't exact (Feb!)
+        case "months": windowHours = windowHours * 40 * 4;  // 4 weeks per month.
+                      break;                                // Note this isn't exact...
       }
     }
   }
 
-  let taskDisplayLength = props.duration / durationScale + "%";
+  console.log("Window Hours",windowHours);
+  let hourBarSize = Math.floor(windowSize / windowHours);       // Round it down...
+  
+  console.log("Window bar size",hourBarSize);
+  let taskDisplayLength = Math.floor(props.duration * hourBarSize) + "px";   // pixels.
+
+  console.log("Task Display Length",taskDisplayLength);
 
   return(
     <div className={props.type === undefined ? "task-item" : "task-item task-" + props.type}
