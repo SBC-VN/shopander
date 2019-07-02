@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import "./style.css";
 
-class Form extends Component {
+class SearchForm extends Component {
   // Setting the component's initial state
   state = {
-    firstName: "",
-    lastName: "",
-    password: ""
+    year: "",
+    make: "",
+    model: "",
+    engine: "",
+    task: "",
+    taskinfo: {}
   };
 
   handleInputChange = event => {
@@ -14,9 +17,6 @@ class Form extends Component {
     const value = event.target.value;
     const name = event.target.name;
 
-    if (name == "password" && this.state.password.length >= 15) {
-      return;
-    }
     // Updating the input's state
     this.setState({
       [name]: value
@@ -27,52 +27,51 @@ class Form extends Component {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
 
-    if (! this.state.firstName || ! this.state.lastName) {
-      alert("Fill out your name please.");
-      return;
-    }
-    else if ( this.state.password.length < 6 )
-    {
-      alert("Please enter a more secure password..");
-      return;
-    }
-    // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-    alert(`Hello ${this.state.firstName} ${this.state.lastName}`);
-    this.setState({
-      firstName: "",
-      lastName: "",
-      password: ""
-    });
+    console.log("Parent add task",this.state.taskinfo);
   };
 
   render() {
     // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
-      <div>
+      <div className="vehicle-search-box">
         <p>
-          Hello {this.state.firstName} {this.state.lastName}
+          Search by year, make, model.
         </p>
         <form className="form">
           <input
-            value={this.state.firstName}
-            name="firstName"
+            value={this.state.year}
+            name="year"
             onChange={this.handleInputChange}
             type="text"
-            placeholder="First Name"
+            placeholder="YYYY"
           />
           <input
-            value={this.state.lastName}
-            name="lastName"
+            value={this.state.make}
+            name="make"
             onChange={this.handleInputChange}
             type="text"
-            placeholder="Last Name"
+            placeholder="Make"
           />
           <input
-            value={this.state.password}
-            name="password"
+            value={this.state.model}
+            name="model"
             onChange={this.handleInputChange}
             type="text"
-            placeholder="Password"
+            placeholder="model"
+          />
+          <input
+            value={this.state.engine}
+            name="engine"
+            onChange={this.handleInputChange}
+            type="text"
+            placeholder="engine"
+          />
+          <input
+            value={this.state.task}
+            name="task"
+            onChange={this.handleInputChange}
+            type="text"
+            placeholder="task"
           />
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
@@ -81,4 +80,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default SearchForm;

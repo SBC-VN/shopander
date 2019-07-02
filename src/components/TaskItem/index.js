@@ -56,8 +56,8 @@ const TaskItem = (props) => {
   return(
     <div className={props.type === undefined ? "task-item" : "task-item task-" + props.type}
          style={{"width": taskDisplayLength}}>
-      <h3>Name: {props.name}</h3>
-      <h4>{props.duration}</h4>
+      <h4>Name: {props.name}</h4>
+      <h5>{props.duration}</h5>
     </div>
   );
 }

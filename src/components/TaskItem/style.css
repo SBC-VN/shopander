@@ -5,10 +5,13 @@
     border-style: solid;
     border-width: 2px;
     box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .task-filler {
     border-color: black;
+    visibility: hidden;
 }
 
 .task-work {
@@ -19,4 +22,8 @@
 .task-unavailable {
     background-color: darkgray;
     border-color: red;
+}
+
+h4,h5 {
+    overflow: hidden;
 }
