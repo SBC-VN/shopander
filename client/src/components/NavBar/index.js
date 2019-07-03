@@ -5,7 +5,9 @@ const NavBar = (props) => {
             <div className="navbar-fixed">
                 <nav>
                     <div className="nav-wrapper">
-                        <a href="#!" className="brand-logo">Logo</a>
+                        <a href="#!" className="brand-logo">
+                            <img src="pistonlogo.png" style={{width:"60px"}} alt="Logo"/>
+                        </a>
                         <ul className="right hide-on-med-and-down">
                             <li>
                                 <a className="waves-effect waves-light btn">

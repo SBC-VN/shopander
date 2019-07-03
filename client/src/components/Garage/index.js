@@ -25,7 +25,7 @@ class Garage extends Component {
     return(      
       <div className="garage-block">
         <ScaleBar scale={this.state.scale} />
-        {this.state.bayTasks.map(element => (<Bay tasks={element}/>))}
+        {this.state.bayTasks.map(element => (<Bay key={element.key} tasks={element}/>))}
       </div>
     );
     };
