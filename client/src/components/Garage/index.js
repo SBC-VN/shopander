@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Bay from "../Bay";
+import ScaleBar from "../ScaleBar";
 import "./style.css";
 
 class Garage extends Component {
@@ -21,8 +22,9 @@ class Garage extends Component {
   };
 
   render() {
-    return(
+    return(      
       <div className="garage-block">
+        <ScaleBar scale={this.state.scale} />
         {this.state.bayTasks.map(element => (<Bay tasks={element}/>))}
       </div>
     );

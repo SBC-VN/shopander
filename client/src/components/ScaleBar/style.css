@@ -1,0 +1,12 @@
+.scale-segment {
+    display: inline-block;
+    margin-left: 0.5%;
+    padding: 1%;
+    border-style: solid;
+    border-width: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: lightblue;
+    border-color: blue;
+}
