@@ -1,22 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
 import Bay from "../Bay";
 import "./style.css";
 
-const Garage = (props) => {
-  console.log("Tasks",props.tasks);
-  let bayTasks = [];
-  props.tasks.forEach(element => {
-    console.log("Element bay",element.bay)
-    if (bayTasks[element.bay] === undefined) {
-      bayTasks[element.bay-1] = [];
-    }
-    bayTasks[element.Bay] += element;
-  });
+class Garage extends Component {
+  state = {
+    scale     : "1 week",
+    bays      : 5,
+    bayTasks  : []
+  };
 
-  console.log("Bays",bayTasks);
-  return(
-    bayTasks.map(element => (<Bay tasks={element}/>))
-  );
+  constructor(props) {
+    super(props);
+    console.log("Tasks",props.tasks);
+    props.tasks.forEach(element => {
+      if (this.state.bayTasks[element.bay-1] === undefined) {
+        this.state.bayTasks[element.bay-1] = [];
+      }
+      this.state.bayTasks[element.bay-1].push(element);
+    });
+  };
+
+  render() {
+    return(
+      <div className="garage-block">
+        {this.state.bayTasks.map(element => (<Bay tasks={element}/>))}
+      </div>
+    );
+    };
 }
 
 export default Garage;
