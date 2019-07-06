@@ -3,6 +3,14 @@ import Bay from "../components/Bay";
 import ScaleBar from "../components/ScaleBar";
 import "./Garage.css";
 
+let items = [{key: 1, name:"Task1",duration:10,type:"work",bay:1},
+             {key: 2, name:"Task2",duration:15,type:"unavailable",bay:2},
+             {key: 3, name:"Task3",duration:6,type:"unavailable",bay:1},
+             {key: 4, name:"Task4",duration:10,type:"work",bay:1},
+             {key: 5, name:"Task5",duration:10,type:"work",bay:2},
+             {key: 6, name:"Task6",duration:42,type:"work",bay:3},
+            ]
+
 class Garage extends Component {
   state = {
     scale     : "1 week",
@@ -12,8 +20,8 @@ class Garage extends Component {
 
   constructor(props) {
     super(props);
-    console.log("Tasks",props.tasks);
-    props.tasks.forEach(element => {
+    console.log("In Garage");
+    items.forEach(element => {
       if (this.state.bayTasks[element.bay-1] === undefined) {
         this.state.bayTasks[element.bay-1] = [];
       }
