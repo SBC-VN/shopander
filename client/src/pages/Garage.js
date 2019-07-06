@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Bay from "../Bay";
-import ScaleBar from "../ScaleBar";
-import "./style.css";
+import Bay from "../components/Bay";
+import ScaleBar from "../components/ScaleBar";
+import "./Garage.css";
 
 class Garage extends Component {
   state = {

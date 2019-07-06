@@ -60,7 +60,14 @@ const ScaleBar = (props) => {
   let segmentCount=Math.floor(windowHours / 8);
 
   return(
-    [...Array(segmentCount)].map((e, i) => <div className="scale-segment" style={{"width": segmentDisplayLength}} key={i}></div>)
+    [...Array(segmentCount)].map((e, i) => (
+      <div className="scale-segment-wrapper">
+        <div className="scale-segment" style={{"width": segmentDisplayLength}} key={i}>
+          <hr style={{"height": "10px","backgroundColor" : "black"}} />        
+        </div>
+        <div className="vertical-line"></div>
+      </div>
+    ))
   );
 }
   

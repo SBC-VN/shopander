@@ -1,5 +1,7 @@
 import React from "react";
-import Garage from "./components/Garage";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Garage from "./pages/Garage";
+import LogIn from "./pages/LogIn";
 import NavBar from "./components/NavBar";
 
 import "./App.css";
@@ -14,14 +16,16 @@ let items = [{key: 1, name:"Task1",duration:10,type:"work",bay:1},
 
 function App() {
   return (
-    <div>
-      <div className="header">
-      </div>
+    <Router>
+      <div>
       <NavBar />
-      <Garage tasks={items}/>
-      <div className="footer">        
+      <Switch>
+        <Route exact path="/" component={LogIn} />
+        <Route exact path="/login" component={LogIn} />
+        <Route exact path="/garage" render={() => <Garage tasks={items}/>}/>
+      </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 
