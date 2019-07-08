@@ -1,4 +1,4 @@
-import React, { Component , Redirect} from "react";
+import React, { Component } from "react";
 import "./LogIn.css";
 
 class LogIn extends Component {
