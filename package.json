@@ -1,7 +1,6 @@
 {
   "name": "mern",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -24,5 +23,14 @@
     "express": "^4.16.3",
     "mongoose": "^5.3.16",
     "if-env": "^1.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SBC-VN/shopander.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SBC-VN/shopander/issues"
+  },
+  "homepage": "https://github.com/SBC-VN/shopander#readme",
+  "description": ""
 }

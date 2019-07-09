@@ -4,8 +4,8 @@ import "./LogIn.css";
 
 class LogIn extends Component {
     state = {
-        username: "",
-        password: "",
+        username: "guest",
+        password: "guest",
         loginkey: "" 
     };
 
