@@ -7,6 +7,8 @@
 --              {key: 6, name:"Task6",duration:42,type:"work",bay:3},
 --             ]
 
+INSERT INTO shopander.users (username, password, hint, createdAt, updatedAt) VALUES ('robin','robin1','try robin1',now(),now());
+
 
 INSERT INTO shopander.bays (baynumber, createdAt, updatedAt) VALUES (1,now(),now());
 INSERT INTO shopander.bays (baynumber, createdAt, updatedAt) VALUES (2,now(),now());

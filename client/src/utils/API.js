@@ -23,6 +23,10 @@ import axios from "axios";
       }, 
       getRepair: function(VIN, miles, dtc) {
           return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`)
+      },
+      // Gets the user with the entered username
+      getUser: function(username) {
+        return axios.get("/api/user/" + username);
       }
 
       

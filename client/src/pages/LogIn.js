@@ -1,5 +1,6 @@
 import React, { Component , Redirect} from "react";
 import "./LogIn.css";
+import API from "../utils/API";
 
 class LogIn extends Component {
     state = {
@@ -8,6 +9,16 @@ class LogIn extends Component {
         loginkey: "" ,
         status: ""
     };
+
+    componentDidMount() {
+        this.loadUser('robin');
+    }
+    
+    loadUser = (username) => {
+        console.log('username was', username)
+        API.getUser(username)
+        .then( res => console.log(res) )
+    }
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
