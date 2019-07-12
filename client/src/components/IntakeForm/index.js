@@ -25,6 +25,7 @@ class IntakeForm extends Component {
     }
 
     const vinfo = [{
+      id: 1,
       color : "Red",
       year : "1994",
       make : "Chevy",
@@ -32,6 +33,7 @@ class IntakeForm extends Component {
       engine : "V8 305cc",
       transmission: "Manual"
     }, {
+      id: 2,
       color : "White",
       year : "2003",
       make : "Dodge",
@@ -101,6 +103,9 @@ class IntakeForm extends Component {
           <div className="input-field col s12" id="custvehicle-select">
             Choose customer's vehicle:
             <select onChange={this.handleInputChange} name="custvehicle-select">
+              {this.state.custVehicles.map( vehicle => (<option key={vehicle.id} 
+                                                         value={vehicle.color + " " + vehicle.year + " " + vehicle.model}/>
+                                                        ))}
             </select>
           </div>
 
