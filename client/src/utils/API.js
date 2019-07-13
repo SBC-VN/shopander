@@ -23,12 +23,20 @@ const config = {
           return axios.get(`http://api.carmd.com/v3.0/decode?vin=${VIN}`, config)
       }, 
       getRepair: function(VIN, miles, dtc) {
+<<<<<<< HEAD
         return new Promise (function(resolve, reject) {
           resolve(data)
         })
 
         
           // return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`, config)
+=======
+          return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`)
+      },
+      // Gets the user with the entered username
+      getUser: function(username) {
+        return axios.get("/api/user/" + username);
+>>>>>>> 7fa51e9ffe0d7bf766f78bd37f1e638e1684490a
       }
       // getTemp: function(VIN, miles, dtc) {
       //   let result= {data}

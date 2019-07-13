@@ -1,5 +1,6 @@
 import React, { Component , Redirect} from "react";
 import "./LogIn.css";
+import API from "../utils/API";
 
 class LogIn extends Component {
     state = {
@@ -8,6 +9,7 @@ class LogIn extends Component {
         loginkey: "" ,
         status: ""
     };
+
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
@@ -23,13 +25,25 @@ class LogIn extends Component {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
         this.setState({
-            status: "Checking log in information",
+            status: "Checking login information",
             loginkey: "yes"
           });
     
         console.log("Form submit",this.state);
-        this.props.history.push('/garage');
-        
+
+        // Added 11JUL2019 by Robin HC to check login name and password
+        API.getUser(this.state.username)
+        .then( res => {
+            console.log('res.data from API.getUser', res.data); 
+            if (res.data === null) { 
+                alert('User login ' + this.state.username + ' was not found')
+            } else if (this.state.password !== res.data.password) {
+                alert('password ' + this.state.password + ' does not match');
+            } else {
+                this.props.history.push('/garage');
+            }
+        });
+ 
     };
 
     handleFormReset = event => {
