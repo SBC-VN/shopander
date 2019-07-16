@@ -1,5 +1,5 @@
 import axios from "axios";
-import data from "./data.json";
+import allData from "./data2.json";
 
 const config = {
   headers: {
@@ -22,29 +22,26 @@ const config = {
       getVIN: function(VIN) {
           return axios.get(`http://api.carmd.com/v3.0/decode?vin=${VIN}`, config)
       }, 
-      getRepair: function(VIN, miles, dtc) {
-<<<<<<< HEAD
+      getRepair: function() {
         return new Promise (function(resolve, reject) {
-          resolve(data)
+          resolve(allData)
+
         })
 
         
           // return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`, config)
-=======
-          return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`)
       },
-      // Gets the user with the entered username
-      getUser: function(username) {
-        return axios.get("/api/user/" + username);
->>>>>>> 7fa51e9ffe0d7bf766f78bd37f1e638e1684490a
-      }
       // getTemp: function(VIN, miles, dtc) {
       //   let result= {data}
       //   return result
       // }
-
+      getUser: function(username) {
+        return axios.get("/api/user/" + username);
+      }
 
       
   } 
-console.log(data)
+
+
+console.log(allData)
   // Vin: 4S3BMHB68B3286050,  5NPD84LF9KH419178, JH4DA9340NS001774

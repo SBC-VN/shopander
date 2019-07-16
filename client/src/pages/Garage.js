@@ -13,6 +13,18 @@ let items = [{key: 1, name:"Task1",duration:10,type:"work",bay:1},
             ]
 
 class Garage extends Component {
+    constructor(props) {
+    super(props);
+    console.log("In Garage");
+    this.getRepairHours=this.getRepairHours.bind(this)
+    items.forEach(element => {
+      if (this.state.bayTasks[element.bay-1] === undefined) {
+        this.state.bayTasks[element.bay-1] = [];
+      }
+      this.state.bayTasks[element.bay-1].push(element);
+    });
+  };
+
   state = {
     scale     : "1 week",
     bays      : 5,
@@ -23,26 +35,28 @@ class Garage extends Component {
     console.log("Word up this is the stuff")
     this.loadRepair();
   }
-
+// grabs raw data
   loadRepair = () => {
-    // API.getRepair("5NPD84LF9KH419178","6000","p0216")
-    API.getRepair("5NPD84LF9KH419178","6000","p0216")
-    .then(res =>
-      console.log(res)
-    //   this.setState({ }))
+    API.getRepair()
+    .then(res => {
+     let carRepair = this.getRepairHours(res, "5NPD84LF9KH419178" );
+     let carRepairHours = carRepair.xcall.data[0].repair.hours
+    //  make VIN in line 44 a dynamic element. Pass through using input values 
+      console.log("Estemated hours: ",carRepairHours)
+    }
     )}
 
-
-  constructor(props) {
-    super(props);
-    console.log("In Garage");
-    items.forEach(element => {
-      if (this.state.bayTasks[element.bay-1] === undefined) {
-        this.state.bayTasks[element.bay-1] = [];
-      }
-      this.state.bayTasks[element.bay-1].push(element);
-    });
+    // loops through raw data array for matching VIN
+  getRepairHours = (arr, vin) => {
+    return arr.find((element) => {
+      // console.log(element.VIN)
+      return element.VIN === vin
+    })
   };
+    
+
+
+
 
   render() {
     return(      
