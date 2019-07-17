@@ -1,0 +1,37 @@
+.form {
+  margin: 20px;
+}
+
+.form input {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+#intake-form {
+  width: 700px;
+  font-size: 22px;
+  background-color: lightblue;
+  margin-top: 40%;
+  padding: 1%;
+}
+
+#cust-car-sel {
+  display: block;
+}
+
+select {
+  display: inline-block;
+  color: green;
+  font-size: 25px;
+}
+
+#custinfo, #vehicleinfo, #taskinfo {
+  display: block;
+  border-color: black;
+  border-style: groove;
+  border-width: 2px;
+  padding: 1%;
+  background-color: cadetblue;
+}

@@ -50,13 +50,13 @@ const ScaleBar = (props) => {
     }
   }
 
-  console.log("Window Hours",windowHours);
+  //console.log("Window Hours",windowHours);
   let hourBarSize = Math.floor(windowSize / windowHours);       // Round it down...
   
-  console.log("Window bar size",hourBarSize);
+  //console.log("Window bar size",hourBarSize);
   let segmentDisplayLength = Math.floor(8 * hourBarSize) + "px";   // pixels.
 
-  console.log("Segment Display Length",segmentDisplayLength);
+  //console.log("Segment Display Length",segmentDisplayLength);
   let segmentCount=Math.floor(windowHours / 8);
 
   return(

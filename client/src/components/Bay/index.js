@@ -3,10 +3,10 @@ import "./style.css";
 import TaskItem from "../TaskItem";
 
 const Bay = (props) => {
-  console.log("Tasks",props.tasks);
+  //console.log("Tasks",props.tasks);
   return(
     <div className="bay-block">
-      {props.tasks.map(task => (<TaskItem key={task.key} 
+      {props.tasks.map(task => (<TaskItem key={task.id} 
                                           name={task.name} 
                                           duration={task.duration}
                                           type={task.type}/>))}
