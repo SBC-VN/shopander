@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import "./style.css";
 
-class SearchForm extends Component {
+class AddTaskForm extends Component {
   // Setting the component's initial state
   state = {
+    customerid: "",
+    custfname:"",
+    custlname:"",
+    custaddr:"",
+    custvehicleid: 0,
     year: "",
     make: "",
     model: "",
@@ -31,7 +36,6 @@ class SearchForm extends Component {
   };
 
   render() {
-    // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div className="vehicle-search-box">
         <p>
@@ -80,4 +84,4 @@ class SearchForm extends Component {
   }
 }
 
-export default SearchForm;
+export default AddTaskForm;
