@@ -42,7 +42,7 @@ class Garage extends Component {
      let carRepair = this.getRepairHours(res, "5NPD84LF9KH419178" );
      let carRepairHours = carRepair.xcall.data[0].repair.hours
     //  make VIN in line 44 a dynamic element. Pass through using input values 
-      console.log("Estemated hours: ",carRepairHours)
+      console.log("Estimated hours: ",carRepairHours)
     }
     )}
 
@@ -52,6 +52,7 @@ class Garage extends Component {
       // console.log(element.VIN)
       return element.VIN === vin
     })
+    console.log(arr)
   };
     
 
