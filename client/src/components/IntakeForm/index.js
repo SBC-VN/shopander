@@ -17,6 +17,7 @@ class IntakeForm extends Component {
     taskInfo: {}
   };
 
+  // Stub customer data read.
   lookupCustomer = custid => {
     const cinfo = { 
       firstname : "Joe",
@@ -49,8 +50,48 @@ class IntakeForm extends Component {
     });
   }
 
+  // Stub vehicle task info read.
+  lookupVehicleTasks = vehicleInfo => {
+    if (vehicleInfo === 0) {
+      return;
+    }
+
+    let vinfo = this.state.custVehicles.find(elem => {return( elem.id == vehicleInfo)});
+
+    // Load the tasks for the vehicle
+    let vtasks = [
+      {
+        id: 1,
+        name : "Oil Change",
+        duration: 0.25 },
+      {
+        id: 2,
+        name: "Tire rotation",
+        duration: 0.5 },
+      {
+        id: 3,
+        name: "Tune up",
+        duration: 1 }];
+
+    this.setState( { vehicleInfo : vinfo, vehicleTasks : vtasks } );
+  }
+
+  // Stub to handle when the task is selected.
+  setTask = taskInfo => {
+    if (taskInfo === 0) {
+      return;
+    }
+
+    let tinfo = this.state.vehicleTasks.find(elem => {return( elem.id == taskInfo)});
+
+    this.setState( { taskInfo : tinfo } );
+  }
+
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
+    // This is where we would do all the database reads - before updating the
+    // state.   So: when a customer types thier phone number we look it up
+    // and put the customer info in the state.  etc.
     let value = event.target.value;
     const name = event.target.name;
 
@@ -60,6 +101,14 @@ class IntakeForm extends Component {
         this.lookupCustomer(value);
         return;
       }
+    }
+    else if (name === "vehiclesel") {
+      this.lookupVehicleTasks(value);
+      return;
+    }
+    else if (name === "tasksel") {
+      this.setTask(value);
+      return;
     }
 
     //Updating the input's state
@@ -72,6 +121,9 @@ class IntakeForm extends Component {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
 
+    // Need to validate data to make sure we have all the task info we need, then
+    // it should be added to the database and task lists.  Otherwise make a nasty
+    // beeping noise and make them stay here.
     console.log("Parent add task",this.state.taskinfo);
   };
 
@@ -80,6 +132,8 @@ class IntakeForm extends Component {
     return (
       <div id="intake-form">
         <form className="form">
+
+          {/* Simple form entry field for customer phone number = customer id */}
           <div id="custphone">
             Customer's phone number:
             <i className="material-icons prefix">phone</i>
@@ -91,6 +145,7 @@ class IntakeForm extends Component {
                     className="validate"/>              
           </div>
 
+          { /* Next few fields get filled in with the customer information from the db */}
           <div id="custinfo">
             <div className="info-field-block" id="custinfo-name">
               Customer Name: {this.state.custInfo.firstname} {this.state.custInfo.lastname}
@@ -100,13 +155,17 @@ class IntakeForm extends Component {
             </div>
           </div>
 
-          <div className="input-field col s12" id="custvehicle-select">
-            Choose customer's vehicle:
-            <select onChange={this.handleInputChange} name="custvehicle-select">
-              {this.state.custVehicles.map( vehicle => (<option key={vehicle.id} 
-                                                         value={vehicle.color + " " + vehicle.year + " " + vehicle.model}/>
-                                                        ))}
-            </select>
+          { /*  Once we have customer -> cars we can present them for selection value={this.state.value} */}
+          <div id="cust-car-sel">
+            <label>
+              Select customer vehicle
+              <select name="vehiclesel" onChange={this.handleInputChange}>
+              <option value="0"> </option>
+                {this.state.custVehicles.map (element => {
+                    return(<option value={element.id} key={element.id}>
+                          {element.color+" " +element.year+" "+element.model}</option>)})}
+              </select>
+            </label>
           </div>
 
           <div id="vehicleinfo">
@@ -127,12 +186,19 @@ class IntakeForm extends Component {
             </div>
           </div>
 
-          <div className="input-field col s12" id="vehicletask-select">
-            Choose task:
-            <select onChange={this.handleInputChange} name="vehicletask-select">
-            </select>
+          { /*  Once we have the vehicle we can present the tasks */}
+          <div id="cust-task-sel">
+            <label>
+              Select task
+              <select name="tasksel" onChange={this.handleInputChange}>
+              <option value="0"> </option>
+                {this.state.vehicleTasks.map (element => {
+                    return(<option value={element.id} key={element.id}>
+                          {element.name}</option>)})}
+              </select>
+            </label>
           </div>
-
+          
           <div id="taskinfo">
             <div className="info-field-block" id="vehicletask-name">
               Task: {this.state.taskInfo.name}
@@ -140,11 +206,8 @@ class IntakeForm extends Component {
             <div className="info-field-inline" id="vehicletask-hours">
               Hours: {this.state.taskInfo.duration}
             </div>
-            <div className="info-field-inline" id="vehicletask-difficulty">
-              Difficulty: {this.state.vehicleInfo.difficulty}
-            </div>
           </div>
-          
+
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
       </div>

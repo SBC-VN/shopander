@@ -17,6 +17,16 @@
   padding: 1%;
 }
 
+#cust-car-sel {
+  display: block;
+}
+
+select {
+  display: inline-block;
+  color: green;
+  font-size: 25px;
+}
+
 #custinfo, #vehicleinfo, #taskinfo {
   display: block;
   border-color: black;
