@@ -70,6 +70,8 @@ class Garage extends Component {
     })
     console.log(arr)
   };
+
+  
     
 
 
