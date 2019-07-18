@@ -1,4 +1,3 @@
-// import React, { Component , Redirect} from "react"; // 13JUL2019
 import React, { Component} from "react"; // 13JUL2019
 import "./LogIn.css";
 import API from "../utils/API";
