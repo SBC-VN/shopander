@@ -19,7 +19,9 @@ const config = {
 
 
   export default {
+
       getVIN: function(VIN) {
+
           return axios.get(`http://api.carmd.com/v3.0/decode?vin=${VIN}`, config)
       }, 
       getRepair: function() {
@@ -31,17 +33,26 @@ const config = {
         
           // return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`, config)
       },
-      // getTemp: function(VIN, miles, dtc) {
-      //   let result= {data}
-      //   return result
-      // }
+
+          return axios.get(`http://api.carmd.com/v3.0/decode?vin=${VIN}`)
+      }
+      
+      , 
+      getRepair: function(VIN, miles, dtc) {
+          return axios.get(`http://api.carmd.com/v3.0/repair?vin=${VIN}&mileage=${miles}&dtc=${dtc}`)
+      }
+      
+      ,
+      // Gets the user with the entered username
+
       getUser: function(username) {
         return axios.get("/api/user/" + username);
       }
 
+      , 
+      // get all the tasks 
+      getTasks: function () { return axios.get("/api/tasks/"); } 
+    
       
   } 
 
-
-console.log(allData)
-  // Vin: 4S3BMHB68B3286050,  5NPD84LF9KH419178, JH4DA9340NS001774

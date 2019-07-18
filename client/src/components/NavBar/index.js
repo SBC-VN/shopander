@@ -10,7 +10,7 @@ const NavBar = (props) => {
                         </a>
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <a className="waves-effect waves-light btn">
+                                <a href="#!" className="waves-effect waves-light btn">
                                     <i className="material-icons right">search</i>
                                 </a>
                             </li>
