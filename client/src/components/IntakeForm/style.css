@@ -1,5 +1,6 @@
 .form {
   margin: 20px;
+  position: relative;
 }
 
 .form input {
@@ -7,6 +8,7 @@
   margin-top: 5px;
   margin-bottom: 5px;
   width: 100%;
+  position: relative;
 }
 
 #intake-form {
@@ -15,16 +17,19 @@
   background-color: lightblue;
   margin-top: 40%;
   padding: 1%;
+  position: relative;
 }
 
 #cust-car-sel {
   display: block;
+  position: relative;
 }
 
 select {
   display: inline-block;
   color: green;
   font-size: 25px;
+  position: relative;
 }
 
 #custinfo, #vehicleinfo, #taskinfo {
@@ -34,4 +39,5 @@ select {
   border-width: 2px;
   padding: 1%;
   background-color: cadetblue;
+  position: relative;
 }
