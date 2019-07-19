@@ -1,15 +1,14 @@
-import React, { Component } from "react";
+import React, { Component} from "react"; // 13JUL2019
 import "./LogIn.css";
 import API from "../utils/API";
 
-class LogIn extends Component {
+    class LogIn extends Component {
     state = {
         username: "guest",
         password: "guest",
         loginkey: "" ,
         status: ""
     };
-
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
@@ -34,7 +33,7 @@ class LogIn extends Component {
         // Added 11JUL2019 by Robin HC to check login name and password
         API.getUser(this.state.username)
         .then( res => {
-            console.log('res.data from API.getUser', res.data); 
+            console.log('In Login.js, res.data from API.getUser', res.data); 
             if (res.data === null) { 
                 alert('User login ' + this.state.username + ' was not found')
             } else if (this.state.password !== res.data.password) {
@@ -62,7 +61,7 @@ class LogIn extends Component {
 
         return(
             <div className="login-wrapper">
-                <a className="btn-floating btn-large waves-effect waves-light red">
+                <a href="#!" className="btn-floating btn-large waves-effect waves-light red">
                     <i className="material-icons"
                        onClick={this.handleFormReset}>add</i>
                 </a>

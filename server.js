@@ -10,6 +10,8 @@
    const PORT    = process.env.PORT || 3001;
 
 
+
+
 // -----------------------------------------------
 // Define middleware layer for urlencoded and json 
 // Serve up static assets (usually on heroku)
@@ -20,18 +22,13 @@
    if (process.env.NODE_ENV === "production") {
       app.use(express.static("client/build"));
    }
-   // const routes = require("./routes");
-   // app.use(routes);
-
-
+ 
 // --------------------------------------------
 // Define database layer for Sequlize and MySQL
 // --------------------------------------------
    var db = require("./models");
    require ("./routes/express-routes-api-db-user.js")(app);
-   // require("./routes/task-api-routes.js")(app);
-   // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
-
+   require ("./routes/express-routes-api-db-tasks.js")(app);
 
 // --------------------------------------
 // Syncinize the sequelize models 
