@@ -33,7 +33,8 @@ class Garage extends Component {
   state = {
     scale     : "1 week",
     bays      : 5,
-    bayTasks  : []
+    bayTasks  : [],
+    addTask   : false
   };
 
   componentDidMount() {
@@ -62,6 +63,10 @@ class Garage extends Component {
       this.setState({ bayTasks: newBayTasks })
     })
     .catch(err => console.log(err));
+  }
+
+  taskButtonClickHandler = () => {
+    this.setState({addTask: true});
   }
 
 // grabs raw data
