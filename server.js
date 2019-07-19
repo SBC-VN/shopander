@@ -1,24 +1,45 @@
-const express = require("express");
+// Changed on 06-JUL-2019 to add database layer and reformat tab=3spaces
 
-const mongoose = require("mongoose");
-const routes = require("./routes");
-const app = express();
-const PORT = process.env.PORT || 3001;
+// --------------------------------------------------------------------
+// create the express contstant and load the express library in it
+// create the express app constant
+// create the express PORT constant, default to 3001 if no env variable
+// --------------------------------------------------------------------
+   const express = require("express");
+   const app     = express();
+   const PORT    = process.env.PORT || 3001;
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
+
+
+// -----------------------------------------------
+// Define middleware layer for urlencoded and json 
 // Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-// Add routes, both API and view
-app.use(routes);
+// Add backend routes, for API and view (not DB)
+// -----------------------------------------------
+   app.use(express.urlencoded({ extended: true }));
+   app.use(express.json());
+   if (process.env.NODE_ENV === "production") {
+      app.use(express.static("client/build"));
+   }
+ 
+// --------------------------------------------
+// Define database layer for Sequlize and MySQL
+// --------------------------------------------
+   var db = require("./models");
+   require ("./routes/express-routes-api-db-user.js")(app);
+   require ("./routes/express-routes-api-db-tasks.js")(app);
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+// --------------------------------------
+// Syncinize the sequelize models 
+// Use force: true to recreate all tables
+// Then start the express API server
+// --------------------------------------
+   db.sequelize.sync({ force: true }).then(function() {
+      app.listen(PORT, function() {
+         console.log(' ')
+         console.log(`==> Express API Server now listening on PORT ${PORT}!`);
+         console.log(' ')
+      });
+   });
 
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});

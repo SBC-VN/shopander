@@ -1,4 +1,32 @@
 .login-wrapper {
-    background-color: darkgray;
+    display: block;
+    background-color: lightgray;
     color: blue;
+    width:35%;
+    padding-top: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+    left: 32%;
+    height: 435px;
+    margin-top: 2%;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 3px;
+    border-style: ridge;
+    top: 8%;
+    position: fixed;
+}
+
+#login-prompt {
+    padding-top:0;
+    margin-top:0;
+}
+
+#icon_prefix, #icon_password, #login-status {
+    font-size: 30px;
+}
+
+#login-submit {
+    height: 70px;
 }

@@ -14,7 +14,7 @@ const TaskItem = (props) => {
   // We can then multiply that by the number of hours in the task to get the task's bar size.
 
   let windowSize = window.innerWidth;  // This is the width of the window.
-  console.log("windowSize",windowSize);
+  //console.log("windowSize",windowSize);
 
   let windowHours = 40;                // Default to 1 work week, 40 hours.
 
@@ -45,18 +45,18 @@ const TaskItem = (props) => {
     }
   }
 
-  console.log("Window Hours",windowHours);
+  //console.log("Window Hours",windowHours);
   let hourBarSize = Math.floor(windowSize / windowHours);       // Round it down...
   
-  console.log("Window bar size",hourBarSize);
+  //console.log("Window bar size",hourBarSize);
   let taskDisplayLength = Math.floor(props.duration * hourBarSize) + "px";   // pixels.
 
-  console.log("Task Display Length",taskDisplayLength);
+  //console.log("Task Display Length",taskDisplayLength);
 
   return(
     <div className={props.type === undefined ? "task-item" : "task-item task-" + props.type}
          style={{"width": taskDisplayLength}}>
-      <h4>Name: {props.name}</h4>
+      <h4>{props.name}</h4>
       <h5>{props.duration}</h5>
     </div>
   );

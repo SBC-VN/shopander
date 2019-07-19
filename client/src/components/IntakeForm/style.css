@@ -1,0 +1,73 @@
+.form {
+  margin: 20px;
+  position: relative;
+  color: #4B11AD;
+}
+
+.form input {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+  position: relative;
+}
+
+#intake-form {
+  width: 700px;
+  font-size: 22px;
+  background-color: lightblue;
+  margin-top: 55%;
+  padding: 1%;
+  position: relative;
+}
+
+#cust-car-sel {
+  display: block;
+  position: relative;
+}
+
+select {
+  display: inline-block;
+  color: black;
+  font-size: 25px;
+  position: relative;
+  background-color: #E8DC90;
+  margin-bottom: 4px;
+}
+
+#icon_telephone {
+  color: black;
+  background-color: #E8DC90;
+}
+
+.input-label {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#custinfo, #vehicleinfo, #taskinfo {
+  display: block;
+  border-color: black;
+  border-style: groove;
+  border-width: 2px;
+  padding: 1%;
+  background-color: cadetblue;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+#submit-button {
+  color: black;
+  background-color: #E8DC90;
+  width: 25%;
+  position: relative;
+}
+
+#cancel-button {
+  color: black;
+  background-color:#FF6BAC;;
+  width: 25%;
+  position: absolute;
+  right: 0%;
+}
