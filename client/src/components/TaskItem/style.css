@@ -1,12 +1,17 @@
 .task-item {
     display: inline-block;
-    margin-left: 0.3%;
-    padding: 1%;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 1%;
+    padding-top: 0;
+    padding-bottom: 0;
     border-style: solid;
-    border-width: 2px;
+    border-width: 4px;
     box-sizing: border-box;
     overflow: hidden;
     white-space: nowrap;
+    position: relative;
 }
 
 .task-filler {
@@ -15,13 +20,13 @@
 }
 
 .task-work {
-    background-color: lightblue;
-    border-color: blue;
+    background-color: #ABFFF5;
+    border-color: #4B11AD;
 }
 
 .task-unavailable {
-    background-color: darkgray;
-    border-color: red;
+    background-color: #B3A56F;
+    border-color: #FF6BAC;
 }
 
 h4,h5 {

@@ -1,6 +1,7 @@
 .form {
   margin: 20px;
   position: relative;
+  color: #4B11AD;
 }
 
 .form input {
@@ -15,7 +16,7 @@
   width: 700px;
   font-size: 22px;
   background-color: lightblue;
-  margin-top: 40%;
+  margin-top: 55%;
   padding: 1%;
   position: relative;
 }
@@ -27,9 +28,22 @@
 
 select {
   display: inline-block;
-  color: green;
+  color: black;
   font-size: 25px;
   position: relative;
+  background-color: #E8DC90;
+  margin-bottom: 4px;
+}
+
+#icon_telephone {
+  color: black;
+  background-color: #E8DC90;
+}
+
+.input-label {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 #custinfo, #vehicleinfo, #taskinfo {
@@ -40,4 +54,20 @@ select {
   padding: 1%;
   background-color: cadetblue;
   position: relative;
+  margin-bottom: 5px;
+}
+
+#submit-button {
+  color: black;
+  background-color: #E8DC90;
+  width: 25%;
+  position: relative;
+}
+
+#cancel-button {
+  color: black;
+  background-color:#FF6BAC;;
+  width: 25%;
+  position: absolute;
+  right: 0%;
 }
