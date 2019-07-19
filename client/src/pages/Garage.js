@@ -17,7 +17,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    zindex                : '7'
+    zindex                : '7',
+    backgroundColor       : '#5A938C'
   }
 };
 
@@ -98,7 +99,9 @@ class Garage extends Component {
             </Modal>
 
             <div id="add-task-bar">
-              <img src="pistonlogo.png" style={{width:"80px"}} alt="Logo"/> 
+              <img src="pistonlogo_yellowblack.jpg" 
+                style={{width:"120px", height:"80px", marginTop:"6px"}} alt="Logo"/>
+              <div id="app-name-main">Shopander</div>              
               <a className="waves-effect waves-light btn-large right"
                   onClick={this.taskButtonClickHandler}
                   id="new-task-button">New Task

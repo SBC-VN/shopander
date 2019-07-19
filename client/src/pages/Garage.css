@@ -6,22 +6,44 @@
 }
 
 #add-task-bar {
-    position: fixed;
+    /* position: fixed; */
     display: block;
     width: 100%;
-    background-color: darkcyan;
-    margin-bottom: 10px;
+    background-color: #4B11AD;
+    /* margin-bottom: 2px; */
+    padding-bottom: 5px;
     padding-right: 20px;
     padding-left: 20px;
 }
 
+#app-name-main {
+    display: inline-block;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-variant: small-caps;
+    color: #E8DC90;
+    font-size: 100px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0px;
+    box-sizing: content-box;
+    line-height:1;
+    left: 40%;
+    position: absolute;
+}
+
 #new-task-button {
-    margin-top: 15px;
+    margin-top: 18px;
+    position: absolute;
+    right: 1%;
+    background:#E8DC90;
+    color: black;
+    font-weight: bold;
 }
 
 #bays-block {
     display: block;
-    margin-top: 10px;
+    /* margin-top: 2px; */
     position: static;
+    z-index: 0;
 }
 

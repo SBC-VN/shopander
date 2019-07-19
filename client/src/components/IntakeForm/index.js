@@ -135,14 +135,15 @@ class IntakeForm extends Component {
 
           {/* Simple form entry field for customer phone number = customer id */}
           <div id="custphone">
-            Customer's phone number:
-            <i className="material-icons prefix">phone</i>
-            <input  id="icon_telephone" 
-                    name="customerid"
-                    type="tel"
-                    value={this.state.customerid}
-                    onChange={this.handleInputChange}
-                    className="validate"/>              
+            <label class="input-label">
+              Customer's phone number:
+              <input  id="icon_telephone" 
+                      name="customerid"
+                      type="tel"
+                      value={this.state.customerid}
+                      onChange={this.handleInputChange}
+                      className="validate"/>
+            </label>            
           </div>
 
           { /* Next few fields get filled in with the customer information from the db */}
@@ -155,9 +156,10 @@ class IntakeForm extends Component {
             </div>
           </div>
 
+          <br/>
           { /*  Once we have customer -> cars we can present them for selection value={this.state.value} */}
           <div id="cust-car-sel">
-            <label>
+            <label class="input-label">
               Select customer vehicle
               <select name="vehiclesel" onChange={this.handleInputChange}>
               <option value="0"> </option>
@@ -185,10 +187,11 @@ class IntakeForm extends Component {
               Engine: {this.state.vehicleInfo.engine}
             </div>
           </div>
+          <br/>
 
           { /*  Once we have the vehicle we can present the tasks */}
           <div id="cust-task-sel">
-            <label>
+            <label class="input-label">
               Select task
               <select name="tasksel" onChange={this.handleInputChange}>
               <option value="0"> </option>
@@ -208,7 +211,9 @@ class IntakeForm extends Component {
             </div>
           </div>
 
-          <button onClick={this.handleFormSubmit}>Submit</button>
+          <br/>
+          <button id="submit-button" onClick={this.handleFormSubmit}>Submit</button>
+          <button id="cancel-button" onClick={this.handleFormSubmit}>Cancel</button>
         </form>
       </div>
     );
