@@ -35,7 +35,7 @@
 // Use force: true to recreate all tables
 // Then start the express API server
 // --------------------------------------
-   db.sequelize.sync({ force: false }).then(function() {
+   db.sequelize.sync({ force: true }).then(function() {
       app.listen(PORT, function() {
          console.log(' ')
          console.log(`==> Express API Server now listening on PORT ${PORT}!`);
