@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
 
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
 
 class IntakeForm extends Component {
   // Setting the component's initial state
@@ -124,7 +120,16 @@ class IntakeForm extends Component {
     // Need to validate data to make sure we have all the task info we need, then
     // it should be added to the database and task lists.  Otherwise make a nasty
     // beeping noise and make them stay here.
-    console.log("Parent add task",this.state.taskinfo);
+    console.log("Parent add task",this.state.taskInfo);
+    this.props.addTaskHandler(this.state.taskInfo);
+  };
+
+  handleFormCancel = event => {
+    // Preventing the default behavior of the form submit (which is to refresh the page)
+    event.preventDefault();
+
+    // Call the close modal function.
+    this.props.closeModalHandler();
   };
 
   render() {
@@ -135,7 +140,7 @@ class IntakeForm extends Component {
 
           {/* Simple form entry field for customer phone number = customer id */}
           <div id="custphone">
-            <label class="input-label">
+            <label className="input-label">
               Customer's phone number:
               <input  id="icon_telephone" 
                       name="customerid"
@@ -159,7 +164,7 @@ class IntakeForm extends Component {
           <br/>
           { /*  Once we have customer -> cars we can present them for selection value={this.state.value} */}
           <div id="cust-car-sel">
-            <label class="input-label">
+            <label className="input-label">
               Select customer vehicle
               <select name="vehiclesel" onChange={this.handleInputChange}>
               <option value="0"> </option>
@@ -191,7 +196,7 @@ class IntakeForm extends Component {
 
           { /*  Once we have the vehicle we can present the tasks */}
           <div id="cust-task-sel">
-            <label class="input-label">
+            <label className="input-label">
               Select task
               <select name="tasksel" onChange={this.handleInputChange}>
               <option value="0"> </option>
@@ -213,7 +218,7 @@ class IntakeForm extends Component {
 
           <br/>
           <button id="submit-button" onClick={this.handleFormSubmit}>Submit</button>
-          <button id="cancel-button" onClick={this.handleFormSubmit}>Cancel</button>
+          <button id="cancel-button" onClick={this.handleFormCancel}>Cancel</button>
         </form>
       </div>
     );

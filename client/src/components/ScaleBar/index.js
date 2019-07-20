@@ -61,7 +61,7 @@ const ScaleBar = (props) => {
 
   return(
     [...Array(segmentCount)].map((e, i) => (
-      <div className="scale-segment-wrapper">
+      <div className="scale-segment-wrapper" key={i}>
         <div className="scale-segment" style={{"width": segmentDisplayLength}} key={i}>
           <hr style={{"height": "10px","backgroundColor" : "black"}} />        
         </div>

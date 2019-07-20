@@ -37,12 +37,14 @@ class Garage extends Component {
     addTask   : false
   };
 
+  // Runs when the form loads up.
   componentDidMount() {
     this.loadTasks();
     console.log("Word up this is the stuff")
     this.loadRepair();
   }
 
+  // Routine called to load the tasks from the database.
   loadTasks = () => {
     API.getTasks()
     .then( res => {
@@ -59,17 +61,38 @@ class Garage extends Component {
         }
         newBayTasks[element.Bay.baynumber-1].push(element);
       });
-      console.log(newBayTasks);
+      //console.log("tasks->bays",newBayTasks);
       this.setState({ bayTasks: newBayTasks })
     })
     .catch(err => console.log(err));
   }
 
+  // Handles the 'new task' button.
   taskButtonClickHandler = () => {
     this.setState({addTask: true});
   }
 
+  // Handles when the user clicks on a task item (bar).
+  taskItemClickHandler = (event) => {
+    if (event.currentTarget.id.startsWith("task-")) {
+      let taskId = event.currentTarget.id.substring(5);
+      //console.log("Task id ",taskId);
+      let taskInfo=undefined;
+
+      for (let i=0; i < this.state.bayTasks.length && taskInfo === undefined; i++) {
+        for (let j=0; j < this.state.bayTasks[i].length && taskInfo === undefined; j++) {
+          if (this.state.bayTasks[i][j].key == taskId) {
+            taskInfo = this.state.bayTasks[i][j];
+          }
+        }
+      }
+
+      console.log("Task Info Found",taskInfo);
+    }   
+  }
+
 // grabs raw data
+// 7/19 VN - Not sure what this is here for.  Repair info = task duration, coming from database...
   loadRepair = () => {
     API.getRepair()
     .then(res => {
@@ -80,15 +103,28 @@ class Garage extends Component {
     }
     )}
 
-    // loops through raw data array for matching VIN
+
+  // loops through raw data array for matching VIN  (Wouldn't array.find do that?)
   getRepairHours = (arr, vin) => {
     return arr.find((element) => {
       // console.log(element.VIN)
       return element.VIN === vin
     })
-    console.log(arr)
   };
 
+  addTaskHandler = newTask => {
+    console.log("Add new task",newTask);
+    // Here the task should be added to the database....
+
+    // Close modal IF task was added successfully.
+    this.setState({addTask : false});
+  }
+
+  closeModalHandler = () => {
+    this.setState({addTask : false});
+  }
+
+  // Render routine renders the garage form and all sub-components.
   render() {
     return(
         <div>
@@ -99,7 +135,8 @@ class Garage extends Component {
               contentLabel="Add Task"
             >
               <IntakeForm 
-                closeModal={this.closeModalHandler}
+                closeModalHandler={this.closeModalHandler}
+                addTaskHandler={this.addTaskHandler}
               />
             </Modal>
 
@@ -115,7 +152,9 @@ class Garage extends Component {
 
             <div id="bays-block">
               <ScaleBar scale={this.state.scale} />
-              {this.state.bayTasks.map(element => (<Bay key={element.id} tasks={element}/>))}
+              {this.state.bayTasks.map((element,indx) => (<Bay key={indx} 
+                                                        tasks={element} 
+                                                        onTaskClickHandler={this.taskItemClickHandler}/>))}
             </div>
           </div>
         </div>

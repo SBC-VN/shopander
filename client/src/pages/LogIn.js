@@ -31,13 +31,14 @@ import API from "../utils/API";
         console.log("Form submit",this.state);
 
         // Added 11JUL2019 by Robin HC to check login name and password
+        // Modified 19Jul2019 VN: replaced notify with state update.
         API.getUser(this.state.username)
         .then( res => {
             console.log('In Login.js, res.data from API.getUser', res.data); 
             if (res.data === null) { 
-                alert('User login ' + this.state.username + ' was not found')
+                this.setState({ status: "username not found"});
             } else if (this.state.password !== res.data.password) {
-                alert('password ' + this.state.password + ' does not match');
+                this.setState({ status: "bad password"});
             } else {
                 this.props.history.push('/garage');
             }

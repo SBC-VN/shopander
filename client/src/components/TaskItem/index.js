@@ -2,6 +2,8 @@ import React from "react";
 
 import "./style.css";
 
+// Called/Used in 'Bay' component.
+
 // Duration of task must be in hours.
 // Scale of task bar can be: hours, days, weeks, months.   Default is 1 hour.
 
@@ -52,10 +54,13 @@ const TaskItem = (props) => {
   let taskDisplayLength = Math.floor(props.duration * hourBarSize) + "px";   // pixels.
 
   //console.log("Task Display Length",taskDisplayLength);
+  //console.log("Task Props",props);
 
   return(
     <div className={props.type === undefined ? "task-item" : "task-item task-" + props.type}
-         style={{"width": taskDisplayLength}}>
+         id={"task-" + props.id}
+         style={{"width": taskDisplayLength}}
+         onClick={props.onTaskClickHandler}>
       <h4>{props.name}</h4>
       <h5>{props.duration}</h5>
     </div>
