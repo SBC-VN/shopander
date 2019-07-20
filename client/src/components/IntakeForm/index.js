@@ -121,7 +121,10 @@ class IntakeForm extends Component {
     // it should be added to the database and task lists.  Otherwise make a nasty
     // beeping noise and make them stay here.
     console.log("Parent add task",this.state.taskInfo);
-    this.props.addTaskHandler(this.state.taskInfo);
+    let retInfo = this.state.taskInfo;
+    retInfo.custInfo = this.state.custInfo;
+    retInfo.vehicleInfo = this.state.vehicleInfo;
+    this.props.addTaskHandler(retInfo);
   };
 
   handleFormCancel = event => {
