@@ -59,14 +59,34 @@ class Garage extends Component {
         }
         newBayTasks[element.Bay.baynumber-1].push(element);
       });
-      console.log(newBayTasks);
+      //console.log("tasks->bays",newBayTasks);
       this.setState({ bayTasks: newBayTasks })
     })
     .catch(err => console.log(err));
   }
 
+  // Handles the 'new task' button.
   taskButtonClickHandler = () => {
     this.setState({addTask: true});
+  }
+
+  // Handles when the user clicks on a task item (bar).
+  taskItemClickHandler = (event) => {
+    if (event.currentTarget.id.startsWith("task-")) {
+      let taskId = event.currentTarget.id.substring(5);
+      //console.log("Task id ",taskId);
+      let taskInfo=undefined;
+
+      for (let i=0; i < this.state.bayTasks.length && taskInfo === undefined; i++) {
+        for (let j=0; j < this.state.bayTasks[i].length && taskInfo === undefined; j++) {
+          if (this.state.bayTasks[i][j].key == taskId) {
+            taskInfo = this.state.bayTasks[i][j];
+          }
+        }
+      }
+
+      console.log("Task Info Found",taskInfo);
+    }   
   }
 
 // grabs raw data
@@ -86,7 +106,6 @@ class Garage extends Component {
       // console.log(element.VIN)
       return element.VIN === vin
     })
-    console.log(arr)
   };
 
   render() {
@@ -115,7 +134,9 @@ class Garage extends Component {
 
             <div id="bays-block">
               <ScaleBar scale={this.state.scale} />
-              {this.state.bayTasks.map(element => (<Bay key={element.id} tasks={element}/>))}
+              {this.state.bayTasks.map((element,indx) => (<Bay key={indx} 
+                                                        tasks={element} 
+                                                        onTaskClickHandler={this.taskItemClickHandler}/>))}
             </div>
           </div>
         </div>

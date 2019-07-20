@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
 
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
 
 class IntakeForm extends Component {
   // Setting the component's initial state
