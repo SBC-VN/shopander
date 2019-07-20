@@ -5,7 +5,9 @@ import ScaleBar from "../components/ScaleBar";
 import "./Garage.css";
 import API from "../utils/API";
 
-import IntakeForm from "../components/IntakeForm"
+import IntakeForm from "../components/IntakeForm";
+import TaskDisplayForm from "../components/TaskDisplayForm";
+
 
 Modal.setAppElement('#root');
 
@@ -34,7 +36,8 @@ class Garage extends Component {
     scale     : "1 week",
     bays      : 5,
     bayTasks  : [],
-    addTask   : false
+    addTask   : false,
+    displayTask : null
   };
 
   // Runs when the form loads up.
@@ -88,6 +91,7 @@ class Garage extends Component {
       }
 
       console.log("Task Info Found",taskInfo);
+      this.setState({displayTask: taskInfo});
     }   
   }
 
@@ -121,7 +125,7 @@ class Garage extends Component {
   }
 
   closeModalHandler = () => {
-    this.setState({addTask : false});
+    this.setState({addTask : false, displayTask: null});
   }
 
   // Render routine renders the garage form and all sub-components.
@@ -138,6 +142,16 @@ class Garage extends Component {
                 closeModalHandler={this.closeModalHandler}
                 addTaskHandler={this.addTaskHandler}
               />
+            </Modal>
+            <Modal
+              isOpen={this.state.displayTask != null}
+              style={customStyles}
+              contentLabel="Add Task"
+            >
+              <TaskDisplayForm
+                task={this.state.displayTask}
+                closeModalHandler={this.closeModalHandler}
+               />
             </Modal>
 
             <div id="add-task-bar">
