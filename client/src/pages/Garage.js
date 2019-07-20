@@ -8,7 +8,6 @@ import API from "../utils/API";
 import IntakeForm from "../components/IntakeForm";
 import TaskDisplayForm from "../components/TaskDisplayForm";
 
-
 Modal.setAppElement('#root');
 
 const customStyles = {
@@ -33,19 +32,25 @@ class Garage extends Component {
   };
 
   state = {
-    scale     : "1 week",
+    scale     : 7,   // days always
     bays      : 5,
     bayTasks  : [],
     addTask   : false,
     displayTask : null
   };
 
+  // Forces a redraw when window size changes.
+  resize = () => this.forceUpdate()
+
   // Runs when the form loads up.
   componentDidMount() {
     this.loadTasks();
-    console.log("Word up this is the stuff")
     this.loadRepair();
+
+    // Add a listener to the window that will call the resize function...
+    window.addEventListener('resize', this.resize);
   }
+
 
   // Routine called to load the tasks from the database.
   loadTasks = () => {
@@ -68,6 +73,16 @@ class Garage extends Component {
       this.setState({ bayTasks: newBayTasks })
     })
     .catch(err => console.log(err));
+  }
+
+  // Handles when the user changes the slider
+  sliderChangeHandler = (event) => {
+    let value = event.target.value;
+    const name = event.target.name;
+
+    if (name === "scaleSlider") {
+      this.setState({scale : value});
+    }
   }
 
   // Handles the 'new task' button.
@@ -130,6 +145,7 @@ class Garage extends Component {
 
   // Render routine renders the garage form and all sub-components.
   render() {
+    //console.log("Garage Render()");
     return(
         <div>
           <div className="garage-block">
@@ -162,13 +178,30 @@ class Garage extends Component {
                   onClick={this.taskButtonClickHandler}
                   id="new-task-button">New Task
               </a>
+              <form action="#">
+                <p className="range-field">
+                  <input 
+                    name="scaleSlider"
+                    type="range" 
+                    id="scale-slider" 
+                    min="3" 
+                    max="20" 
+                    value={this.state.scale}
+                    onChange={this.sliderChangeHandler}
+                  />
+                </p>
+              </form>
             </div>
 
-            <div id="bays-block">
-              <ScaleBar scale={this.state.scale} />
-              {this.state.bayTasks.map((element,indx) => (<Bay key={indx} 
-                                                        tasks={element} 
-                                                        onTaskClickHandler={this.taskItemClickHandler}/>))}
+            <div id="bays-block-container">
+              <div id="bays-block">
+                <ScaleBar scale={this.state.scale + " days"} />
+                {this.state.bayTasks.map((element,indx) => (<Bay  key={indx} 
+                                                                  tasks={element}
+                                                                  scale={this.state.scale + " days"}
+                                                                  onTaskClickHandler={this.taskItemClickHandler}
+                                                            />))}
+              </div>
             </div>
           </div>
         </div>
