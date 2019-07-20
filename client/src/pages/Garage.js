@@ -5,7 +5,8 @@ import ScaleBar from "../components/ScaleBar";
 import "./Garage.css";
 import API from "../utils/API";
 
-import IntakeForm from "../components/IntakeForm"
+import IntakeForm from "../components/IntakeForm";
+import TaskDisplayForm from "../components/TaskDisplayForm";
 
 Modal.setAppElement('#root');
 
@@ -31,18 +32,27 @@ class Garage extends Component {
   };
 
   state = {
-    scale     : "1 week",
+    scale     : 7,   // days always
     bays      : 5,
     bayTasks  : [],
-    addTask   : false
+    addTask   : false,
+    displayTask : null
   };
 
+  // Forces a redraw when window size changes.
+  resize = () => this.forceUpdate()
+
+  // Runs when the form loads up.
   componentDidMount() {
     this.loadTasks();
-    console.log("Word up this is the stuff")
     this.loadRepair();
+
+    // Add a listener to the window that will call the resize function...
+    window.addEventListener('resize', this.resize);
   }
 
+
+  // Routine called to load the tasks from the database.
   loadTasks = () => {
     API.getTasks()
     .then( res => {
@@ -59,17 +69,49 @@ class Garage extends Component {
         }
         newBayTasks[element.Bay.baynumber-1].push(element);
       });
-      console.log(newBayTasks);
+      //console.log("tasks->bays",newBayTasks);
       this.setState({ bayTasks: newBayTasks })
     })
     .catch(err => console.log(err));
   }
 
+  // Handles when the user changes the slider
+  sliderChangeHandler = (event) => {
+    let value = event.target.value;
+    const name = event.target.name;
+
+    if (name === "scaleSlider") {
+      this.setState({scale : value});
+    }
+  }
+
+  // Handles the 'new task' button.
   taskButtonClickHandler = () => {
     this.setState({addTask: true});
   }
 
+  // Handles when the user clicks on a task item (bar).
+  taskItemClickHandler = (event) => {
+    if (event.currentTarget.id.startsWith("task-")) {
+      let taskId = event.currentTarget.id.substring(5);
+      //console.log("Task id ",taskId);
+      let taskInfo=undefined;
+
+      for (let i=0; i < this.state.bayTasks.length && taskInfo === undefined; i++) {
+        for (let j=0; j < this.state.bayTasks[i].length && taskInfo === undefined; j++) {
+          if (this.state.bayTasks[i][j].key == taskId) {
+            taskInfo = this.state.bayTasks[i][j];
+          }
+        }
+      }
+
+      console.log("Task Info Found",taskInfo);
+      this.setState({displayTask: taskInfo});
+    }   
+  }
+
 // grabs raw data
+// 7/19 VN - Not sure what this is here for.  Repair info = task duration, coming from database...
   loadRepair = () => {
     API.getRepair()
     .then(res => {
@@ -80,16 +122,30 @@ class Garage extends Component {
     }
     )}
 
-    // loops through raw data array for matching VIN
+
+  // loops through raw data array for matching VIN  (Wouldn't array.find do that?)
   getRepairHours = (arr, vin) => {
     return arr.find((element) => {
       // console.log(element.VIN)
       return element.VIN === vin
     })
-    console.log(arr)
   };
 
+  addTaskHandler = newTask => {
+    console.log("Add new task",newTask);
+    // Here the task should be added to the database....
+
+    // Close modal IF task was added successfully.
+    this.setState({addTask : false});
+  }
+
+  closeModalHandler = () => {
+    this.setState({addTask : false, displayTask: null});
+  }
+
+  // Render routine renders the garage form and all sub-components.
   render() {
+    //console.log("Garage Render()");
     return(
         <div>
           <div className="garage-block">
@@ -99,8 +155,19 @@ class Garage extends Component {
               contentLabel="Add Task"
             >
               <IntakeForm 
-                closeModal={this.closeModalHandler}
+                closeModalHandler={this.closeModalHandler}
+                addTaskHandler={this.addTaskHandler}
               />
+            </Modal>
+            <Modal
+              isOpen={this.state.displayTask != null}
+              style={customStyles}
+              contentLabel="Add Task"
+            >
+              <TaskDisplayForm
+                task={this.state.displayTask}
+                closeModalHandler={this.closeModalHandler}
+               />
             </Modal>
 
             <div id="add-task-bar">
@@ -111,11 +178,30 @@ class Garage extends Component {
                   onClick={this.taskButtonClickHandler}
                   id="new-task-button">New Task
               </a>
+              <form action="#">
+                <p className="range-field">
+                  <input 
+                    name="scaleSlider"
+                    type="range" 
+                    id="scale-slider" 
+                    min="3" 
+                    max="20" 
+                    value={this.state.scale}
+                    onChange={this.sliderChangeHandler}
+                  />
+                </p>
+              </form>
             </div>
 
-            <div id="bays-block">
-              <ScaleBar scale={this.state.scale} />
-              {this.state.bayTasks.map(element => (<Bay key={element.id} tasks={element}/>))}
+            <div id="bays-block-container">
+              <div id="bays-block">
+                <ScaleBar scale={this.state.scale + " days"} />
+                {this.state.bayTasks.map((element,indx) => (<Bay  key={indx} 
+                                                                  tasks={element}
+                                                                  scale={this.state.scale + " days"}
+                                                                  onTaskClickHandler={this.taskItemClickHandler}
+                                                            />))}
+              </div>
             </div>
           </div>
         </div>

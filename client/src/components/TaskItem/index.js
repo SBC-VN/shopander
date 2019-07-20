@@ -2,10 +2,14 @@ import React from "react";
 
 import "./style.css";
 
+// Called/Used in 'Bay' component.
+
 // Duration of task must be in hours.
 // Scale of task bar can be: hours, days, weeks, months.   Default is 1 hour.
 
 const TaskItem = (props) => {
+  //console.log("TaskItem draw",props.scale);
+
   // First we calculate the size of the tasks 'bar' on the window.
   //
   // First step is to get the size of the window ( window.innerWidth ) and figure out 
@@ -22,7 +26,7 @@ const TaskItem = (props) => {
     // Some scale information was given.  Need to parse it.
 
     let parts = props.scale.trim().split(' ');   // Split something like "1 day" into 1 & day.
-    let windowHours = parseInt(parts[0]);      // Convert the party of the first part into a number.
+    windowHours = parseInt(parts[0]);      // Convert the party of the first part into a number.
     if (isNaN(windowHours)) {
       // Bad format for the scale.  Default to 
       windowHours = 40;
@@ -34,6 +38,11 @@ const TaskItem = (props) => {
       switch (parts[1].trim().toLowerCase()) {
 
         default:
+        case "hours":                                       // Already in hours...
+                      break;
+        case "days":
+                      windowHours = windowHours * 8;        // 8 hours per day by n days.
+                      break;
         case "week":
         case "weeks": windowHours = windowHours * 40;       //  40 hours per week by n weeks.
                       break;
@@ -52,10 +61,13 @@ const TaskItem = (props) => {
   let taskDisplayLength = Math.floor(props.duration * hourBarSize) + "px";   // pixels.
 
   //console.log("Task Display Length",taskDisplayLength);
+  //console.log("Task Props",props);
 
   return(
     <div className={props.type === undefined ? "task-item" : "task-item task-" + props.type}
-         style={{"width": taskDisplayLength}}>
+         id={"task-" + props.id}
+         style={{"width": taskDisplayLength}}
+         onClick={props.onTaskClickHandler}>
       <h4>{props.name}</h4>
       <h5>{props.duration}</h5>
     </div>

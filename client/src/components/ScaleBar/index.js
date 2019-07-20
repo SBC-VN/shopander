@@ -12,6 +12,8 @@ import "./style.css";
 // 
 
 const ScaleBar = (props) => {
+  //console.log("ScaleBar draw",props.scale);
+
   // First step is to get the size of the window ( window.innerWidth ) and figure out 
   // how many hours should be displayed in that window ( windowHours ) then dividing the 
   // window width by the hours being displayed gives us the size of an hour's bar ( hourBarSize ).
@@ -27,18 +29,24 @@ const ScaleBar = (props) => {
     // Some scale information was given.  Need to parse it.
 
     let parts = props.scale.trim().split(' ');   // Split something like "1 day" into 1 & day.
-    let windowHours = parseInt(parts[0]);      // Convert the party of the first part into a number.
+    windowHours = parseInt(parts[0]);      // Convert the party of the first part into a number.
     if (isNaN(windowHours)) {
       // Bad format for the scale.  Default to 
+      console.log("bad windowHours",parts[0]);
       windowHours = 40;
     }
     else {
       //    Window hours is some number, but there's a second part that may change that.
       //      at this point we only support 'weeks' and 'months' for that second part.
-
+      
       switch (parts[1].trim().toLowerCase()) {
 
         default:
+        case "hours":                                       // Already in hours...
+                      break;
+        case "days":
+                      windowHours = windowHours * 8;        // 8 hours per day by n days.
+                      break;
         case "week":
         case "weeks": windowHours = windowHours * 40;       //  40 hours per week by n weeks.
                       break;
@@ -61,7 +69,7 @@ const ScaleBar = (props) => {
 
   return(
     [...Array(segmentCount)].map((e, i) => (
-      <div className="scale-segment-wrapper">
+      <div className="scale-segment-wrapper" key={i}>
         <div className="scale-segment" style={{"width": segmentDisplayLength}} key={i}>
           <hr style={{"height": "10px","backgroundColor" : "black"}} />        
         </div>
