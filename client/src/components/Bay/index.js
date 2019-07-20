@@ -5,10 +5,11 @@ import TaskItem from "../TaskItem";
 // Called/Used in Garage page.
 
 const Bay = (props) => {
-  console.log("Tasks",props.tasks);
+  //console.log("Tasks",props.tasks);
   return(
     <div className="bay-block">
       {props.tasks.map(task => (<TaskItem key={task.key}
+                                          scale={props.scale}
                                           id={task.key}
                                           name={task.name} 
                                           duration={task.duration}
