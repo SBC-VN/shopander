@@ -37,12 +37,14 @@ class Garage extends Component {
     addTask   : false
   };
 
+  // Runs when the form loads up.
   componentDidMount() {
     this.loadTasks();
     console.log("Word up this is the stuff")
     this.loadRepair();
   }
 
+  // Routine called to load the tasks from the database.
   loadTasks = () => {
     API.getTasks()
     .then( res => {
@@ -90,6 +92,7 @@ class Garage extends Component {
   }
 
 // grabs raw data
+// 7/19 VN - Not sure what this is here for.  Repair info = task duration, coming from database...
   loadRepair = () => {
     API.getRepair()
     .then(res => {
@@ -100,7 +103,8 @@ class Garage extends Component {
     }
     )}
 
-    // loops through raw data array for matching VIN
+
+  // loops through raw data array for matching VIN  (Wouldn't array.find do that?)
   getRepairHours = (arr, vin) => {
     return arr.find((element) => {
       // console.log(element.VIN)
@@ -108,6 +112,19 @@ class Garage extends Component {
     })
   };
 
+  addTaskHandler = newTask => {
+    console.log("Add new task",newTask);
+    // Here the task should be added to the database....
+
+    // Close modal IF task was added successfully.
+    this.setState({addTask : false});
+  }
+
+  closeModalHandler = () => {
+    this.setState({addTask : false});
+  }
+
+  // Render routine renders the garage form and all sub-components.
   render() {
     return(
         <div>
@@ -118,7 +135,8 @@ class Garage extends Component {
               contentLabel="Add Task"
             >
               <IntakeForm 
-                closeModal={this.closeModalHandler}
+                closeModalHandler={this.closeModalHandler}
+                addTaskHandler={this.addTaskHandler}
               />
             </Modal>
 
