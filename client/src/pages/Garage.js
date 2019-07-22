@@ -28,7 +28,7 @@ class Garage extends Component {
     constructor(props) {
     super(props);
     console.log("In Garage");
-    this.getRepairHours=this.getRepairHours.bind(this)
+    //this.getRepairHours=this.getRepairHours.bind(this)
   };
 
   state = {
@@ -45,7 +45,7 @@ class Garage extends Component {
   // Runs when the form loads up.
   componentDidMount() {
     this.loadTasks();
-    this.loadRepair();
+    //this.loadRepair();
 
     // Add a listener to the window that will call the resize function...
     window.addEventListener('resize', this.resize);
@@ -105,36 +105,63 @@ class Garage extends Component {
         }
       }
 
-      console.log("Task Info Found",taskInfo);
+      //console.log("Task Info Found",taskInfo);
       this.setState({displayTask: taskInfo});
     }   
   }
 
 // grabs raw data
 // 7/19 VN - Not sure what this is here for.  Repair info = task duration, coming from database...
-  loadRepair = () => {
-    API.getRepair()
-    .then(res => {
-     let carRepair = this.getRepairHours(res, "5NPD84LF9KH419178" );
-     let carRepairHours = carRepair.xcall.data[0].repair.hours
-    //  make VIN in line 44 a dynamic element. Pass through using input values 
-      console.log("Estimated hours: ",carRepairHours)
-    }
-    )}
+  // loadRepair = () => {
+  //   API.getRepair()
+  //   .then(res => {
+  //    let carRepair = this.getRepairHours(res, "5NPD84LF9KH419178" );
+  //    let carRepairHours = carRepair.xcall.data[0].repair.hours
+  //   //  make VIN in line 44 a dynamic element. Pass through using input values 
+  //     console.log("Estimated hours: ",carRepairHours)
+  //   }
+  //   )}
 
 
   // loops through raw data array for matching VIN  (Wouldn't array.find do that?)
-  getRepairHours = (arr, vin) => {
-    return arr.find((element) => {
-      // console.log(element.VIN)
-      return element.VIN === vin
-    })
-  };
+  // getRepairHours = (arr, vin) => {
+  //   return arr.find((element) => {
+  //     // console.log(element.VIN)
+  //     return element.VIN === vin
+  //   })
+  // };
 
   addTaskHandler = newTask => {
     console.log("Add new task",newTask);
-    // Here the task should be added to the database....
 
+    // Find a bay for the task.  
+    //   this will basically be the bay with the least hours allocated.
+    let bayHours=0;
+    let minBay=0;
+    let minBayHours=99999;
+
+    for (let i=0; i < this.state.bays; i++) {
+      bayHours = 0;
+      if (this.state.bayTasks[i] != undefined)
+      {
+        for (let j=0; j < this.state.bayTasks[i].length; j++) {
+          bayHours += this.state.bayTasks[i][j].duration;
+        }
+      }
+
+      if (bayHours < minBayHours) {
+        minBay = i;
+        minBayHours = bayHours;
+      }
+    }
+
+    console.log("Min Bay",minBay);
+    console.log("Bay Hours",minBayHours);
+
+    newTask.Bay = {  baynumber: minBay+1 };
+
+    // Here the task should be added to the database....
+    API.createNewTask(newTask);
     // Close modal IF task was added successfully.
     this.setState({addTask : false});
   }
@@ -185,7 +212,7 @@ class Garage extends Component {
                     type="range" 
                     id="scale-slider" 
                     min="3" 
-                    max="20" 
+                    max="20"
                     value={this.state.scale}
                     onChange={this.sliderChangeHandler}
                   />
