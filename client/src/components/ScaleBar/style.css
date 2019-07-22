@@ -28,3 +28,7 @@
     /* z-index: 1; */
     position: absolute;
 }
+
+.scale-date {
+    text-align:center
+}

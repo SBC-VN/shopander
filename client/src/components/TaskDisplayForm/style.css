@@ -1,0 +1,37 @@
+
+#task-display-form {
+  width: 700px;
+  font-size: 22px;
+  color: #4B11AD;
+  background-color: lightblue;
+  margin-top: 5%;
+  padding: 2%;
+  position: relative;
+  height: fit-content;
+}
+
+#custinfo, #vehicleinfo, #taskinfo {
+  display: block;
+  border-color: black;
+  border-style: groove;
+  border-width: 2px;
+  padding: 1%;
+  background-color: cadetblue;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+#submit-button {
+  color: black;
+  background-color: #E8DC90;
+  width: 25%;
+  position: relative;
+}
+
+#cancel-button {
+  color: black;
+  background-color:#FF6BAC;;
+  width: 25%;
+  position: absolute;
+  right: 0%;
+}

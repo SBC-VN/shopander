@@ -14,8 +14,22 @@
     border-color: black;
     border-width: 3px;
     border-style: ridge;
-    top: 8%;
+    top: 10%;
     position: fixed;
+}
+
+#add-task-bar {
+    position: fixed;
+    display: block;
+    width: 100%;
+    background-color: #4B11AD;
+    /* margin-bottom: 2px; */
+    /* padding-bottom: 5px; */
+    padding-right: 20px;
+    padding-left: 20px;
+    z-index: 5;
+    height: 135px;
+    overflow: hidden;
 }
 
 #login-prompt {
