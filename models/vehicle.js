@@ -1,5 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 
+// Changed on 21JUL2019 by Robin HC to associate Vehicle to Task 
+
   // vehicleInfo {
   //   id: (string unique),
   //   color : (string),
@@ -19,14 +21,14 @@ module.exports = function(sequelize, DataTypes) {
       vehicle_transmission: { type: DataTypes.STRING,  allowNull: true }
     });
   
+    // We're saying that a Vehicle should always belong to a Customer
+    // A Vehicle can't be created without a Customer due to the foreign key constraint
+
     Vehicle.associate = function(models) {
-      // We're saying that a Vehicle should always belong to a Customer
-      // A Vehicle can't be created without a Customer due to the foreign key constraint
-      Vehicle.belongsTo(models.Customer, {
-        foreignKey: { allowNull: false }
-      });
+      Vehicle.belongsTo(models.Customer, { foreignKey: { allowNull: false } }), 
+      Vehicle.hasMany(models.Task, { onDelete: "cascade" })
     };
-  
+    
     return Vehicle;
   };
   
