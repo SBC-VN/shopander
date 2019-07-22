@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "testuser",
-    "password": "none",
+    "username": "root",
+    "password": "root1",
     "database": "shopander",
     "host": "127.0.0.1",
     "port": 3306,
