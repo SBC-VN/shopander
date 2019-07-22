@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
-
+import API from "../../utils/API";
 
 class IntakeForm extends Component {
   // Setting the component's initial state
@@ -14,35 +14,14 @@ class IntakeForm extends Component {
   };
 
   // Stub customer data read.
-  lookupCustomer = custid => {
-    const cinfo = { 
-      firstname : "Joe",
-      lastname : "Customer",
-      address: "1111 Null Street"
-    }
+  lookupCustomer = custid => {  
 
-    const vinfo = [{
-      id: 1,
-      color : "Red",
-      year : "1994",
-      make : "Chevy",
-      model : "Camaro",
-      engine : "V8 305cc",
-      transmission: "Manual"
-    }, {
-      id: 2,
-      color : "White",
-      year : "2003",
-      make : "Dodge",
-      model : "Grand Caravan",
-      engine : "V6 3.8L",
-      transmission: "Automatic"
-    }]
+    let CustDbInfoRec = API.getCustomerInfo(custid);
 
     this.setState({
-      customerid : custid,
-      custInfo : cinfo,
-      custVehicles : vinfo
+      customerid : CustDbInfoRec.custid,
+      custInfo : CustDbInfoRec.custinfo,
+      custVehicles : CustDbInfoRec.custvehicles
     });
   }
 
@@ -55,19 +34,7 @@ class IntakeForm extends Component {
     let vinfo = this.state.custVehicles.find(elem => {return( elem.id == vehicleInfo)});
 
     // Load the tasks for the vehicle
-    let vtasks = [
-      {
-        id: 1,
-        name : "Oil Change",
-        duration: 0.25 },
-      {
-        id: 2,
-        name: "Tire rotation",
-        duration: 0.5 },
-      {
-        id: 3,
-        name: "Tune up",
-        duration: 1 }];
+    let vtasks = API.getVehicleTasks(vinfo);
 
     this.setState( { vehicleInfo : vinfo, vehicleTasks : vtasks } );
   }
@@ -120,7 +87,7 @@ class IntakeForm extends Component {
     // Need to validate data to make sure we have all the task info we need, then
     // it should be added to the database and task lists.  Otherwise make a nasty
     // beeping noise and make them stay here.
-    console.log("Parent add task",this.state.taskInfo);
+    //console.log("Parent add task",this.state.taskInfo);
     let retInfo = this.state.taskInfo;
     retInfo.custInfo = this.state.custInfo;
     retInfo.vehicleInfo = this.state.vehicleInfo;

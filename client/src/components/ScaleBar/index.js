@@ -84,7 +84,7 @@ const ScaleBar = (props) => {
     [...Array(segmentCount)].map((e, i) => (
       <div className="scale-segment-wrapper" key={i}>
         <div className="scale-segment" style={{"width": segmentDisplayLength}} key={i}>
-          <hr style={{"height": "8px","backgroundColor" : "black"}} />
+          <hr style={{"height": "8px","backgroundColor" : "#4B11AD"}} />
           <div className="scale-date">{startDate.add(i,'day').format("DD-MMM-YY")}</div>
         </div>
         <div className="vertical-line"></div>

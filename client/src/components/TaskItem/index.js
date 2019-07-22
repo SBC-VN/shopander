@@ -64,7 +64,7 @@ const TaskItem = (props) => {
   //console.log("Task Props",props);
 
   return(
-    <div className={props.type === undefined ? "task-item" : "task-item task-" + props.type}
+    <div className={props.type === undefined ? "task-item task-work" : "task-item task-" + props.type}
          id={"task-" + props.id}
          style={{"width": taskDisplayLength}}
          onClick={props.onTaskClickHandler}>
