@@ -61,50 +61,58 @@ import API from "../utils/API";
         //   }
 
         return(
-            <div className="login-wrapper">
-                <a href="#!" className="btn-floating btn-large waves-effect waves-light red">
-                    <i className="material-icons"
-                       onClick={this.handleFormReset}>add</i>
-                </a>
-                <div style={{"textAlign":"center"}}>
-                    <h3 id="login-prompt">Please Log In</h3>
+            <div>
+                <div id="add-task-bar">
+                    <img src="pistonlogo_yellowblack.jpg" 
+                        style={{width:"120px", height:"80px", marginTop:"6px"}} alt="Logo"/>
+                    <div id="app-name-main">Shopander</div>              
                 </div>
-                <form className="col s6"> 
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <i className="material-icons prefix">account_circle</i>
-                            <input id="icon_prefix"
-                                   value={this.state.username}
-                                   type="text"
-                                   onChange={this.handleInputChange}
-                                   name="username"
-                                   className="validate"></input>
-                            <label htmlFor="icon_prefix">User Name</label>
-                        </div>
+
+                <div className="login-wrapper">          
+                    <a href="#!" className="btn-floating btn-large waves-effect waves-light red">
+                        <i className="material-icons"
+                        onClick={this.handleFormReset}>add</i>
+                    </a>
+                    <div style={{"textAlign":"center"}}>
+                        <h3 id="login-prompt">Please Log In</h3>
                     </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <i className="material-icons prefix">vpn_key</i>
-                            <input  id="icon_password"
-                                    value={this.state.password}
-                                    type="password"
-                                    name="password"
+                    <form className="col s6"> 
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <i className="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix"
+                                    value={this.state.username}
+                                    type="text"
                                     onChange={this.handleInputChange}
+                                    name="username"
                                     className="validate"></input>
-                            <label htmlFor="icon_password">Password</label>
+                                <label htmlFor="icon_prefix">User Name</label>
+                            </div>
                         </div>
-                    </div>
-                    <button className="btn waves-effect waves-light right" 
-                            id="login-submit" 
-                            type="submit" 
-                            name="login"
-                            onClick={this.handleFormSubmit}>
-                        Log In
-                        <i className="material-icons right">send</i>
-                    </button>
-                </form>
-                <div id="login-status">{this.state.status}</div>
-            </div>      
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <i className="material-icons prefix">vpn_key</i>
+                                <input  id="icon_password"
+                                        value={this.state.password}
+                                        type="password"
+                                        name="password"
+                                        onChange={this.handleInputChange}
+                                        className="validate"></input>
+                                <label htmlFor="icon_password">Password</label>
+                            </div>
+                        </div>
+                        <button className="btn waves-effect waves-light right" 
+                                id="login-submit" 
+                                type="submit" 
+                                name="login"
+                                onClick={this.handleFormSubmit}>
+                            Log In
+                            <i className="material-icons right">send</i>
+                        </button>
+                    </form>
+                    <div id="login-status">{this.state.status}</div>
+                </div>      
+            </div>
         );
     };
 };

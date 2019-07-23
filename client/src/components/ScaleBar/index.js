@@ -1,4 +1,5 @@
 import React from "react";
+import Moment from "moment";
 
 import "./style.css";
 
@@ -67,11 +68,24 @@ const ScaleBar = (props) => {
   //console.log("Segment Display Length",segmentDisplayLength);
   let segmentCount=Math.floor(windowHours / 8);
 
+  // Now because we want to make it possible to view past/future intervals, we need to take the 
+  // intervalStartDate given in the props -or- use 'today' as the start then label each interval with
+  // that date information.
+  let startDate=null;
+
+  if (props.intervalStartDate === undefined) {
+    startDate = Moment();
+  }
+  else {
+    startDate = Moment(props.intervalStartDate)
+  }
+
   return(
     [...Array(segmentCount)].map((e, i) => (
       <div className="scale-segment-wrapper" key={i}>
         <div className="scale-segment" style={{"width": segmentDisplayLength}} key={i}>
-          <hr style={{"height": "10px","backgroundColor" : "black"}} />        
+          <hr style={{"height": "8px","backgroundColor" : "#4B11AD"}} />
+          <div className="scale-date">{startDate.add(i,'day').format("DD-MMM-YY")}</div>
         </div>
         <div className="vertical-line"></div>
       </div>

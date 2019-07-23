@@ -28,3 +28,11 @@
     /* z-index: 1; */
     position: absolute;
 }
+
+.scale-date {
+    text-align:center;
+    position: relative;
+    top: -5px;
+    font-weight: bold;
+    color: black;
+}

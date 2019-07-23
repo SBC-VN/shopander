@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes)
 
   Bay.associate = function(models) 
   {
-    // Associating Bay with Tasks
+    // Associating Bay with Tasks 
     // When an Bay is deleted, also delete any associated Tasks
     Bay.hasMany(models.Task, {
       onDelete: "cascade"

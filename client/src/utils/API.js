@@ -42,7 +42,83 @@ const config = {
       // get all the tasks 
       getTasks: function () { 
         return axios.get("/api/tasks/"); 
-      } 
+      },
+
+      // Get Customer Info given the customer phone number.
+      getCustomerInfo: function(customerId) {
+        const cinfo = { 
+          firstname : "Joe",
+          lastname : "Customer",
+          address: "1111 Null Street"
+        }
+
+        const vinfo = [{
+          id: 1,
+          vin: "1111111111",
+          color : "Red",
+          year : "1994",
+          make : "Chevy",
+          model : "Camaro",
+          engine : "V8 305cc",
+          transmission: "Manual"
+        }, {
+          id: 2,
+          vin: "22222222222",
+          color : "White",
+          year : "2003",
+          make : "Dodge",
+          model : "Grand Caravan",
+          engine : "V6 3.8L",
+          transmission: "Automatic"
+        }]
+
+        const CustDbInfoRec = {
+          custid: customerId,
+          custinfo: cinfo,
+          custvehicles: vinfo
+        }
+
+        return CustDbInfoRec;
+      },
+
+      // Get the available tasks for a vehicle given the vehicle information record
+      // (one record from the array returned in the getCustomerInfo custvehicles field)
+      getVehicleTasks: function (vehicleInfoRec) {
+
+        // use vehicleInfoRec.vin and/or 
+        //     vehicleInfoRec.year + vehicleInfoRec.make + vehicleInfoRec.model
+        // to look up the tasks/time for that vehicle then 
+        // return the array.
+        //
+        let vtasks = [
+          {
+            id: 1,
+            name : "Oil Change",
+            duration: 0.25 },
+          {
+            id: 2,
+            name: "Tire rotation",
+            duration: 0.5 },
+          {
+            id: 3,
+            name: "Tune up",
+            duration: 1 }];
+
+        return(vtasks);
+      },
+
+      createNewTask: function (TaskContainerRec) {
+        let custInfo = TaskContainerRec.custInfo;
+        let vehicleInfo = TaskContainerRec.vehicleInfo;
+        let Bay = TaskContainerRec.Bay;
+
+        // Remove the vehicle and cust info from the container record to make the 
+        // task record..
+        let taskInfo = TaskContainerRec;
+        delete taskInfo["custInfo"];
+        delete taskInfo["vehicleInfo"];
+        delete taskInfo["Bay"];
+      }
         
   } // end of export default
 

@@ -1,5 +1,6 @@
 
 // Changed 06-JUL-2019 by RRH to create file with route to get all tasks
+// Changed 21-JUL-2019 by RRH to update /api/tasks/ to new database tables
 
 
 // create the sequelize db constant variable 
@@ -21,10 +22,9 @@
          attributes: [ 
             ['id', 'key'], 
             ['task_name', 'name'],
-            ['task_duration', 'duration'],
-            ['task_type', 'type']
-      ] ,
-         include: [db.Bay] 
+            ['task_duration', 'duration']
+         ] ,
+         include: [db.Bay, db.Vehicle]
       }).then(function(dbTask) {
          res.json(dbTask);
       });
