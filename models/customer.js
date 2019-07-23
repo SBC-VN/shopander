@@ -21,16 +21,9 @@ module.exports = function(sequelize, DataTypes) {
     // ---------------------------------------------------------------------------
 
     Customer.associate = function(models) {
-      Customer.hasMany(models.Vehicle, {
-        onDelete: "cascade"
-      })
+      Customer.hasMany(models.Vehicle, { onDelete: "cascade" }) ,
+      Customer.hasMany(models.Task, { onDelete: "cascade" })
     };
-
-    Customer.associate = function(models) {
-      Customer.hasMany(models.Task, {
-        onDelete: "cascade"
-      })
-    }; 
     
     return Customer;
   };

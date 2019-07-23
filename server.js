@@ -29,6 +29,7 @@
    var db = require("./models");
    require ("./routes/express-routes-api-db-user.js")(app);
    require ("./routes/express-routes-api-db-tasks.js")(app);
+   require ("./routes/express-routes-api-db-customer.js")(app);
 
 // --------------------------------------
 // Syncinize the sequelize models 

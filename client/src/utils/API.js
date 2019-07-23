@@ -1,3 +1,6 @@
+// changed 23JUL2019 By Robin HC to switch getCustomerInfo to the database
+
+
 import axios from "axios";
 import allData from "./data2.json";
 
@@ -45,41 +48,44 @@ const config = {
       },
 
       // Get Customer Info given the customer phone number.
-      getCustomerInfo: function(customerId) {
-        const cinfo = { 
-          firstname : "Joe",
-          lastname : "Customer",
-          address: "1111 Null Street"
-        }
+      getCustomerInfo: function(phonenumber) {
 
-        const vinfo = [{
-          id: 1,
-          vin: "1111111111",
-          color : "Red",
-          year : "1994",
-          make : "Chevy",
-          model : "Camaro",
-          engine : "V8 305cc",
-          transmission: "Manual"
-        }, {
-          id: 2,
-          vin: "22222222222",
-          color : "White",
-          year : "2003",
-          make : "Dodge",
-          model : "Grand Caravan",
-          engine : "V6 3.8L",
-          transmission: "Automatic"
-        }]
+        return axios.get("/api/customer/" + phonenumber);
 
-        const CustDbInfoRec = {
-          custid: customerId,
-          custinfo: cinfo,
-          custvehicles: vinfo
-        }
+        // const cinfo = { 
+        //   firstname : "Joe",
+        //   lastname : "Customer",
+        //   address: "1111 Null Street"
+        // }
+        // const vinfo = [{
+        //   id: 1,
+        //   vin: "1111111111",
+        //   color : "Red",
+        //   year : "1994",
+        //   make : "Chevy",
+        //   model : "Camaro",
+        //   engine : "V8 305cc",
+        //   transmission: "Manual"
+        // }, {
+        //   id: 2,
+        //   vin: "22222222222",
+        //   color : "White",
+        //   year : "2003",
+        //   make : "Dodge",
+        //   model : "Grand Caravan",
+        //   engine : "V6 3.8L",
+        //   transmission: "Automatic"
+        // }]
+        // const CustDbInfoRec = {
+        //   custid: customerId,
+        //   custinfo: cinfo,
+        //   custvehicles: vinfo
+        // }
+        // return CustDbInfoRec;
 
-        return CustDbInfoRec;
       },
+
+
 
       // Get the available tasks for a vehicle given the vehicle information record
       // (one record from the array returned in the getCustomerInfo custvehicles field)
